@@ -3,30 +3,52 @@
  */
 package core;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import core.listeners.CommandListener;
 import core.listeners.ReadyListener;
 import io.github.cdimascio.dotenv.Dotenv;
+import lib.BotCommand;
+import lib.CommandManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
 public class Bot {
+
+  public static JDA api;
 
   public static void main(String[] args) {
     Dotenv dotenv = Dotenv.configure().directory("../").load();
     String token = dotenv.get("DISCORD_BOT_TOKEN");
 
-    if(token == null) {
+    if (token == null) {
       System.out.println("DISCORD_BOT_TOKEN not set");
       System.exit(1);
     }
 
-    JDA jda = JDABuilder.createDefault(token)
+    api = JDABuilder.createDefault(token)
         .addEventListeners(new ReadyListener())
         .addEventListeners(new CommandListener())
         .build();
 
-    jda.updateCommands().addCommands(
-        Commands.slash("ping", "Calculate ping of the bot")).queue();
+    loadCommands();
+  }
+
+  public static void loadCommands() {
+    CommandManager.loadCommandsFromPackage("core.commands");
+
+    Collection<BotCommand> commands = CommandManager.getAllCommands();
+
+    List<SlashCommandData> commandData = new ArrayList<>();
+    for (BotCommand command : commands) {
+      commandData.add(command.data);
+    }
+
+    api.updateCommands()
+        .addCommands(commandData)
+        .queue();
   }
 }

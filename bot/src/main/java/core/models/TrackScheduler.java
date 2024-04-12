@@ -1,4 +1,4 @@
-package core.managers;
+package core.models;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -19,7 +19,9 @@ public class TrackScheduler extends AudioEventAdapter {
   }
 
   public void queue(AudioTrack track) {
-    if (!this.player.startTrack(track, true)) {
+    Boolean started = this.player.startTrack(track, true);
+
+    if (!started) {
       this.queue.offer(track);
     }
   }

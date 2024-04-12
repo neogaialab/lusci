@@ -7,9 +7,11 @@ import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
 import core.managers.PlayerManager;
-import core.managers.TrackScheduler;
+import core.models.GuildAudioPlayer;
+import core.models.TrackScheduler;
 import lib.command.BotCommand;
 import lib.discord.ChannelUtils;
+import lib.player.JdaAudioSendHandler;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -22,7 +24,8 @@ public class PlayCommand extends BotCommand {
   public PlayCommand() {
     super(Commands
         .slash("play", "Play a song.")
-        .addOption(OptionType.STRING, "identifier", "Track identifier for media source (e.g. YouTube video ID, file path).", true));
+        .addOption(OptionType.STRING, "identifier",
+            "Track identifier for media source (e.g. YouTube video ID, file path).", true));
   }
 
   @Override
@@ -42,58 +45,56 @@ public class PlayCommand extends BotCommand {
     audioManager.openAudioConnection(voiceChannel);
 
     PlayerManager playerManager = PlayerManager.getInstance();
-    AudioPlayer player = playerManager.getAudioPlayerManager().createPlayer();
-    TrackScheduler trackScheduler = new TrackScheduler(player);
-    player.addListener(trackScheduler);
+    GuildAudioPlayer guildAudioPlayer = playerManager.getGuildAudioPlayer(guild);
+
+    TrackScheduler trackScheduler = guildAudioPlayer.scheduler;
 
     String identifier = event.getOption("identifier").getAsString();
 
     playerManager
-      .getAudioPlayerManager()
-      .loadItemOrdered(player, identifier, new AudioLoadResultHandler() {
+        .getPlayerManager()
+        .loadItemOrdered(guildAudioPlayer.audioPlayer, identifier, new AudioLoadResultHandler() {
 
-      @Override
-      public void trackLoaded(AudioTrack track) {
-        trackScheduler.queue(track);
+          @Override
+          public void trackLoaded(AudioTrack track) {
+            event
+                .reply("The bot started playing: " + identifier)
+                .queue();
 
-        event
-            .reply("The bot started playing: " + identifier)
-            .queue();
+            trackScheduler.queue(track);
+          }
 
-        player.playTrack(track);
-      }
+          @Override
+          public void playlistLoaded(AudioPlaylist playlist) {
+            for (AudioTrack track : playlist.getTracks()) {
+              trackScheduler.queue(track);
+            }
+          }
 
-      @Override
-      public void playlistLoaded(AudioPlaylist playlist) {
-        for (AudioTrack track : playlist.getTracks()) {
-          trackScheduler.queue(track);
-        }
-      }
+          @Override
+          public void noMatches() {
+            event
+                .reply("No matches!")
+                .queue();
+          }
 
-      @Override
-      public void noMatches() {
-        event
-            .reply("No matches!")
-            .queue();
-      }
+          @Override
+          public void loadFailed(FriendlyException exception) {
+            if (exception.severity == FriendlyException.Severity.COMMON) {
+              event
+                  .reply(
+                      "The track is unavailable, for example, the YouTube track is blocked or not available in your area.")
+                  .queue();
 
-      @Override
-      public void loadFailed(FriendlyException exception) {
-        if (exception.severity == FriendlyException.Severity.COMMON) {
-          event
-              .reply(
-                  "The track is unavailable, for example, the YouTube track is blocked or not available in your area.")
-              .queue();
+              return;
+            }
 
-          return;
-        }
+            System.out.println(exception.getMessage());
 
-        System.out.println(exception.getMessage());
-
-        event
-            .reply("Load failed!")
-            .queue();
-      }
-    });
+            event
+                .reply("Load failed!")
+                .queue();
+          }
+        });
   }
 }

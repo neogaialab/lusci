@@ -21,7 +21,6 @@ public class PlayerManager {
     this.playerManager = new DefaultAudioPlayerManager();
 
     AudioSourceManagers.registerRemoteSources(this.playerManager);
-    AudioSourceManagers.registerLocalSource(this.playerManager);
   }
 
   public GuildAudioPlayer getGuildAudioPlayer(Guild guild) {

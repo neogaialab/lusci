@@ -9,10 +9,11 @@ import net.dv8tion.jda.api.JDABuilder;
 public class Bot {
 
   public static JDA api;
+  public static Dotenv env;
 
   public static void main(String[] args) {
-    Dotenv dotenv = Dotenv.configure().directory("../").load();
-    String token = dotenv.get("DISCORD_BOT_TOKEN");
+    env = Dotenv.configure().directory("../").load();
+    String token = env.get("DISCORD_BOT_TOKEN");
 
     if (token == null) {
       System.out.println("DISCORD_BOT_TOKEN not set");

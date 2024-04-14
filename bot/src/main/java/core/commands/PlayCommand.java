@@ -6,6 +6,7 @@ import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
+import core.Bot;
 import core.managers.PlayerManager;
 import core.models.GuildAudioPlayer;
 import core.models.TrackScheduler;
@@ -49,7 +50,14 @@ public class PlayCommand extends BotCommand {
 
     TrackScheduler trackScheduler = guildAudioPlayer.scheduler;
 
-    String identifier = event.getOption("identifier").getAsString();
+    String url = event.getOption("identifier").getAsString();
+    String urlWithoutApiKey = url;
+
+    if(url.startsWith(Bot.env.get("JELLYFIN_URL"))) {
+      url = url + "?api_key=" + Bot.env.get("JELLYFIN_API_KEY");
+    }
+
+    String identifier = url;
 
     playerManager
         .getPlayerManager()
@@ -58,7 +66,7 @@ public class PlayCommand extends BotCommand {
           @Override
           public void trackLoaded(AudioTrack track) {
             event
-                .reply("The bot started playing: " + identifier)
+                .reply("The bot started playing: " + urlWithoutApiKey)
                 .queue();
 
             trackScheduler.queue(track);

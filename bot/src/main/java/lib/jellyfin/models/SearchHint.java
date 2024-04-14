@@ -1,4 +1,4 @@
-package lib.jellyfin;
+package lib.jellyfin.models;
 
 public record SearchHint(
   String ItemId,

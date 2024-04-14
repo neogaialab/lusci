@@ -13,7 +13,7 @@ public class LeaveCommand extends BotCommand {
 
   public LeaveCommand() {
     super(Commands
-        .slash("leave", "Disconnect Lizzy from the voice channel."));
+        .slash("leave", "Disconnect the bot from the voice channel."));
   }
 
   @Override

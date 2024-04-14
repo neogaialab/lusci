@@ -1,5 +1,8 @@
 package lib.jellyfin.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public record SearchHint(
   String ItemId,
   String Id,

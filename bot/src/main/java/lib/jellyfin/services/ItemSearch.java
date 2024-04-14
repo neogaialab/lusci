@@ -49,6 +49,8 @@ public class ItemSearch {
         throw new Errors.NoMatchesError();
       }
 
+      e2.printStackTrace();
+
       throw new Errors.SearchError();
     }
   }

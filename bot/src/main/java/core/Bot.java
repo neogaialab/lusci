@@ -5,11 +5,13 @@ import io.github.cdimascio.dotenv.Dotenv;
 import lib.command.CommandUtils;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import okhttp3.OkHttpClient;
 
 public class Bot {
 
   public static JDA api;
   public static Dotenv env;
+  public static OkHttpClient httpClient = new OkHttpClient();
 
   public static void main(String[] args) {
     env = Dotenv.configure().directory("../").load();

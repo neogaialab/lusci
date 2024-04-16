@@ -34,6 +34,6 @@ application {
 shadowJar {
    archiveBaseName.set('lusci')
    archiveClassifier.set('')
-   archiveVersion.set(project.version)
+   archiveVersion.set('')
 }
 

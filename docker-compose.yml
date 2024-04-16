@@ -1,19 +1,9 @@
 version: '3.8'
-
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
+  lusci:
+    image: eclipse-temurin:21-jre-alpine
     volumes:
-      - .:/app
-    environment:
-      - JAVA_OPTS=-Xmx512m
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge
+      - ./bot/build/libs/lusci.jar:/opt/app/lusci.jar
+    command: ["java", "-jar", "/opt/app/lusci.jar"]
+    env_file:
+      - .env

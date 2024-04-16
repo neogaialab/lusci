@@ -14,7 +14,7 @@ public class Bot {
   public static OkHttpClient httpClient = new OkHttpClient();
 
   public static void main(String[] args) {
-    env = Dotenv.configure().directory("../").load();
+    env = Dotenv.configure().directory("../").ignoreIfMissing().load();
     String token = env.get("DISCORD_BOT_TOKEN");
 
     if (token == null) {

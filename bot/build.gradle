@@ -5,6 +5,10 @@ plugins {
 
 version '0.1.0'
 
+run {
+  systemProperties['version'] = project.version
+}
+
 repositories {
   mavenCentral()
   maven {
@@ -32,8 +36,12 @@ application {
 }
 
 shadowJar {
-   archiveBaseName.set('lusci')
-   archiveClassifier.set('')
-   archiveVersion.set('')
+  manifest {
+    attributes "Implementation-Version": project.version
+  }
+
+  archiveBaseName.set('lusci')
+  archiveClassifier.set('')
+  archiveVersion.set('')
 }
 

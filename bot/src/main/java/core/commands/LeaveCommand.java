@@ -1,7 +1,7 @@
 package core.commands;
 
-import lib.command.BotCommand;
 import lib.discord.ChannelUtils;
+import lib.discord.command.BotCommand;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.api.entities.channel.unions.AudioChannelUnion;

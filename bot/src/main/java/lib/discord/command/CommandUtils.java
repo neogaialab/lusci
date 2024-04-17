@@ -1,4 +1,4 @@
-package lib.command;
+package lib.discord.command;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -1,4 +1,4 @@
-package lib.command;
+package lib.discord.command;
 
 import java.io.File;
 import java.io.IOException;

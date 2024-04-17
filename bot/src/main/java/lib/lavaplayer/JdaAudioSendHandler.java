@@ -1,4 +1,4 @@
-package lib.player;
+package lib.lavaplayer;
 
 import java.nio.ByteBuffer;
 

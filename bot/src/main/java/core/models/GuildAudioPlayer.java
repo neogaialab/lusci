@@ -3,7 +3,7 @@ package core.models;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 
-import lib.player.JdaAudioSendHandler;
+import lib.lavaplayer.JdaAudioSendHandler;
 
 public class GuildAudioPlayer {
 

@@ -16,5 +16,6 @@ public class GuildAudioPlayer {
     this.audioPlayer = playerManager.createPlayer();
     this.sendHandler = new JdaAudioSendHandler(this.audioPlayer);
     this.scheduler = new TrackScheduler(this.audioPlayer);
+    this.audioPlayer.addListener(scheduler);
   }
 }

@@ -3,8 +3,6 @@ plugins {
   id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
-version '0.1.0'
-
 run {
   systemProperties['version'] = project.version
 }
@@ -45,3 +43,18 @@ shadowJar {
   archiveVersion.set('')
 }
 
+tasks.register('release') {
+  doLast {
+    println "Enter the new version: [current: ${project.version}]"
+    def version = new BufferedReader(new InputStreamReader(System.in)).readLine()
+
+    if(version) {
+      exec {
+        executable 'bash'
+        args "../scripts/release.sh", version
+      }
+    } else {
+      println "No version entered."
+    }
+  }
+}

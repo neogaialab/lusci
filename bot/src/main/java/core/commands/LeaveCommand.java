@@ -2,10 +2,10 @@ package core.commands;
 
 import lib.discord.ChannelUtils;
 import lib.discord.command.BotCommand;
+import lib.discord.command.GenericCommandEvent;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.api.entities.channel.unions.AudioChannelUnion;
-import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.managers.AudioManager;
 
@@ -17,7 +17,7 @@ public class LeaveCommand extends BotCommand {
   }
 
   @Override
-  public void execute(SlashCommandInteractionEvent event) {
+  public void execute(GenericCommandEvent event) {
     VoiceChannel voiceChannel = ChannelUtils.getVoiceChannel(event);
 
     if (voiceChannel == null) {

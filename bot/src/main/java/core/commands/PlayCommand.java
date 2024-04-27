@@ -10,13 +10,13 @@ import core.models.GuildAudioPlayer;
 import core.models.TrackScheduler;
 import lib.discord.ChannelUtils;
 import lib.discord.command.BotCommand;
+import lib.discord.command.GenericCommandEvent;
 import lib.jellyfin.Errors;
 import lib.jellyfin.services.ItemSearch;
 import lib.jellyfin.utils.ItemUrlUtils;
 import lib.net.UrlUtils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
-import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.managers.AudioManager;
@@ -31,13 +31,12 @@ public class PlayCommand extends BotCommand {
   }
 
   @Override
-  public void execute(SlashCommandInteractionEvent event) {
+  public void execute(GenericCommandEvent event) {
     VoiceChannel voiceChannel = ChannelUtils.getVoiceChannel(event);
 
     if (voiceChannel == null) {
       event
-          .reply("You are not connected to a voice channel!")
-          .queue();
+          .reply("You are not connected to a voice channel!");
       return;
     }
 
@@ -49,14 +48,14 @@ public class PlayCommand extends BotCommand {
 
     TrackScheduler trackScheduler = guildAudioPlayer.scheduler;
 
-    String query = event.getOption("query").getAsString();
+    String query = event.getOptionAsString("query");
+    System.out.println(query);
     String trackName = query;
 
     if (ItemUrlUtils.isJellyfinUrl(query)) {
       query = ItemUrlUtils.addAuthorizationToUrl(query);
       trackName = ItemUrlUtils.removeAuthorizationFromUrl(query);
-    }
-    else if(!UrlUtils.isUrl(query)) {
+    } else if (!UrlUtils.isUrl(query)) {
       try {
         var searchResult = ItemSearch.searchMusic(query);
 

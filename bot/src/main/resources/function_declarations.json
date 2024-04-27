@@ -1,0 +1,34 @@
+[
+  {
+    "name": "play",
+    "description": "Play a song.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "URL or search query to use, eg. Sybreed"
+        }
+      },
+      "required": [
+        "query"
+      ]
+    }
+  },
+  {
+    "name": "leave",
+    "description": "Disconnect the bot from the voice channel."
+  },
+  {
+    "name": "pause",
+    "description": "Pause the current song."
+  },
+  {
+    "name": "resume",
+    "description": "Resume the current song."
+  },
+  {
+    "name": "skip",
+    "description": "Play the next song."
+  }
+]

@@ -1,7 +1,7 @@
 package core.commands;
 
 import lib.discord.command.BotCommand;
-import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import lib.discord.command.GenericCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 
 public class PingCommand extends BotCommand {
@@ -11,13 +11,11 @@ public class PingCommand extends BotCommand {
   }
 
   @Override
-  public void execute(SlashCommandInteractionEvent event) {
+  public void execute(GenericCommandEvent event) {
     long time = System.currentTimeMillis();
 
     event
-        .reply("Pong!")
-        .setEphemeral(true)
-        .flatMap(v -> event.getHook().editOriginalFormat("Pong: %d ms", System.currentTimeMillis() - time))
+        .reply(String.format("Pong: %d ms", System.currentTimeMillis() - time))
         .queue();
   }
 }

@@ -2,6 +2,7 @@ version: '3.8'
 services:
   lusci:
     image: eclipse-temurin:21-jre-alpine
+    container_name: lusci
     volumes:
       - ./bot/build/libs/lusci.jar:/opt/app/lusci.jar
     command: ["java", "-jar", "/opt/app/lusci.jar"]

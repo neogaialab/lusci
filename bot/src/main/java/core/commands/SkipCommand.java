@@ -3,8 +3,8 @@ package core.commands;
 import core.managers.PlayerManager;
 import core.models.GuildAudioPlayer;
 import lib.discord.command.BotCommand;
+import lib.discord.command.GenericCommandEvent;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 
 public class SkipCommand extends BotCommand {
@@ -15,7 +15,7 @@ public class SkipCommand extends BotCommand {
   }
 
   @Override
-  public void execute(SlashCommandInteractionEvent event) {
+  public void execute(GenericCommandEvent event) {
     Guild guild = event.getGuild();
 
     PlayerManager playerManager = PlayerManager.getInstance();

@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.net.URLDecoder;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -101,5 +100,20 @@ public class CommandManager {
         }
       }
     }
+  }
+
+  public static BotCommand getCommandByName(String name) {
+    var commands = CommandManager.getAllCommands();
+    var command = commands
+      .stream()
+      .filter(x -> x.data.getName().equals(name))
+      .findAny()
+      .orElse(null);
+
+    if (command == null) {
+      return null;
+    }
+
+    return command;
   }
 }

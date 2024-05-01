@@ -21,7 +21,14 @@ public class TtcListener implements EventListener {
       var botName = Bot.api.getSelfUser().getId();
       var message = event.getMessage().getContentRaw();
 
-      if (message.contains("<@" + botName + ">")) {
+      System.out.println(message);
+
+      var reference = event.getMessage().getReferencedMessage();
+
+      var isTaggingBot = message.contains("<@" + botName + ">");
+      var isReplyingBot = reference != null && reference.getAuthor().getId().equals(botName);
+
+      if (isTaggingBot || isReplyingBot) {
         var prompt = message.toString().replace("<@" + botName + ">", "");
 
         if (Bot.functionDeclarationsNode == null) {

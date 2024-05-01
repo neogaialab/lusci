@@ -49,7 +49,6 @@ public class PlayCommand extends BotCommand {
     TrackScheduler trackScheduler = guildAudioPlayer.scheduler;
 
     String query = event.getOptionAsString("query");
-    System.out.println(query);
     String trackName = query;
 
     if (ItemUrlUtils.isJellyfinUrl(query)) {

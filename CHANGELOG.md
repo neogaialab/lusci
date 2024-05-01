@@ -4,9 +4,16 @@ name: Changelog
 description: All notable changes to this project will be documented in this file.
 ---
 
-## [2024-04-26]
+## [Unreleased]
 
-## Added
+### Added
+
+- Added vol command
+- Added support for natural language commands
+
+## [0.1.0] - 2024-04-26
+
+### Added
 
 - Added play command
 - Added leave command

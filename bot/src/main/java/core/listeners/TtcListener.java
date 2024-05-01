@@ -54,6 +54,12 @@ public class TtcListener implements EventListener {
 
           command.execute(new GenericCommandEvent() {
             @Override
+            public String getSubcommandName() {
+              // TODO
+              return null;
+            }
+
+            @Override
             public Guild getGuild() {
               return event.getGuild();
             }
@@ -76,6 +82,11 @@ public class TtcListener implements EventListener {
             @Override
             public String getOptionAsString(String name) {
               return args.get(name).asText();
+            }
+
+            @Override
+            public int getOptionAsInt(String name) {
+              return args.get(name).asInt();
             }
           });
         } catch (Exception er) {

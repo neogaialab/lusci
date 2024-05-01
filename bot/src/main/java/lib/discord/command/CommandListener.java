@@ -25,6 +25,11 @@ public class CommandListener extends ListenerAdapter {
         }
 
         @Override
+        public String getSubcommandName() {
+          return event.getSubcommandName();
+        }
+
+        @Override
         public GenericMessageCreate reply(String message) {
           return new GenericMessageCreate() {
             @Override
@@ -42,6 +47,11 @@ public class CommandListener extends ListenerAdapter {
         @Override
         public String getOptionAsString(String name) {
           return event.getOption(name).getAsString();
+        }
+
+        @Override
+        public int getOptionAsInt(String name) {
+          return event.getOption(name).getAsInt();
         }
       });
     } catch (Exception e) {

@@ -7,7 +7,7 @@
       "properties": {
         "query": {
           "type": "string",
-          "description": "URL or search query to use, eg. Sybreed"
+          "description": "URL or search query to use, eg. Sybreed."
         }
       },
       "required": [
@@ -30,5 +30,38 @@
   {
     "name": "skip",
     "description": "Play the next song."
+  },
+  {
+    "name": "vol_up",
+    "description": "Increase the volume."
+  },
+  {
+    "name": "vol_down",
+    "description": "Decrease the volume."
+  },
+  {
+    "name": "vol_mute",
+    "description": "Mute the bot's audio."
+  },
+  {
+    "name": "vol_unmute",
+    "description": "Unmute the bot's audio."
+  },
+  {
+    "name": "vol_get",
+    "description": "Unmute the bot's audio."
+  },
+  {
+    "name": "vol_set",
+    "description": "Set the volume.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "volume": {
+          "type": "integer",
+          "description": "Set the volume."
+        }
+      }
+    }
   }
 ]

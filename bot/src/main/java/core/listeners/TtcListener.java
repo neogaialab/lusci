@@ -1,5 +1,7 @@
 package core.listeners;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import core.Bot;
 import lib.discord.command.CommandManager;
 import lib.discord.command.GenericCommandEvent;
@@ -29,7 +31,6 @@ public class TtcListener implements EventListener {
         }
 
         try {
-          System.out.println(prompt);
           var res = FunctionCalling.generate(prompt, Bot.functionDeclarationsNode);
 
           var functionCall = res
@@ -39,10 +40,14 @@ public class TtcListener implements EventListener {
               .get("parts")
               .get(0)
               .get("functionCall");
+
           var name = functionCall.get("name").asText();
           var args = functionCall.get("args");
 
-          var command = CommandManager.getCommandByName(name);
+          var commands = name.split("_");
+          var mainCommand = commands[0];
+
+          var command = CommandManager.getCommandByName(mainCommand);
 
           if (command == null) {
             event.getChannel().sendMessage("Sorry, something went wrong.").queue();
@@ -55,8 +60,8 @@ public class TtcListener implements EventListener {
           command.execute(new GenericCommandEvent() {
             @Override
             public String getSubcommandName() {
-              // TODO
-              return null;
+              var subcommandName = commands[1];
+              return subcommandName;
             }
 
             @Override
@@ -90,6 +95,7 @@ public class TtcListener implements EventListener {
             }
           });
         } catch (Exception er) {
+          event.getChannel().sendMessage("Sorry, something went wrong. Try again.").queue();
           er.printStackTrace();
         }
       }

@@ -7,7 +7,7 @@
       "properties": {
         "query": {
           "type": "string",
-          "description": "URL or search query to use, eg. Sybreed."
+          "description": "Enter a URL or search query. For the query, use the track name (e.g., 'Simulacrum'), the author followed by the track name (e.g., 'Shadow Domain - Simulacrum'), or just the author's name (e.g., 'Sybreed')."
         }
       },
       "required": [

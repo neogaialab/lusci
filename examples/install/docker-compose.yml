@@ -4,7 +4,7 @@ services:
     image: eclipse-temurin:21-jre-alpine
     container_name: lusci
     volumes:
-      - ./bot/build/libs/lusci.jar:/opt/app/lusci.jar
+      - ./lusci.jar:/opt/app/lusci.jar
     command: ["java", "-jar", "/opt/app/lusci.jar"]
     env_file:
       - .env

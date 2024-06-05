@@ -3,6 +3,7 @@ services:
   lusci:
     image: eclipse-temurin:21-jre-alpine
     container_name: lusci
+    restart: unless-stopped
     volumes:
       - ./lusci.jar:/opt/app/lusci.jar
     command: ["java", "-jar", "/opt/app/lusci.jar"]

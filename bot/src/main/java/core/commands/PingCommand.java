@@ -7,15 +7,16 @@ import net.dv8tion.jda.api.interactions.commands.build.Commands;
 public class PingCommand extends BotCommand {
 
   public PingCommand() {
-    super(Commands.slash("ping", "Calculate ping of the bot."));
+    super(Commands.slash("ping", "Checks the bot's latency."));
   }
 
   @Override
   public void execute(GenericCommandEvent event) {
-    long time = System.currentTimeMillis();
+    var ping = event.getPing();
+    var gatewayPing = event.getGatewayPing();
 
     event
-        .reply(String.format("Pong: %d ms", System.currentTimeMillis() - time))
+        .reply(String.format("Pong: %d ms | WebSocket: %d ms", ping, gatewayPing))
         .queue();
   }
 }

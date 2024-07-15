@@ -10,4 +10,6 @@ public abstract class GenericCommandEvent {
   public abstract GenericMessageCreate reply(String message);
   public abstract Member getMember();
   public abstract String getSubcommandName();
+  public abstract long getPing();
+  public abstract long getGatewayPing();
 }

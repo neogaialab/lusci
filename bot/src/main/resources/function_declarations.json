@@ -63,5 +63,9 @@
         }
       }
     }
+  },
+  {
+    "name": "ping",
+    "description": "Checks the bot's latency."
   }
 ]

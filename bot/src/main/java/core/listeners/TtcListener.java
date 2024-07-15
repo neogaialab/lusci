@@ -1,6 +1,7 @@
 package core.listeners;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import java.time.OffsetDateTime;
+import java.time.temporal.ChronoUnit;
 
 import core.Bot;
 import lib.discord.command.CommandManager;
@@ -99,6 +100,16 @@ public class TtcListener implements EventListener {
             @Override
             public int getOptionAsInt(String name) {
               return args.get(name).asInt();
+            }
+
+            @Override
+            public long getPing() {
+              return event.getMessage().getTimeCreated().until(OffsetDateTime.now(), ChronoUnit.MILLIS) / 1000;
+            }
+
+            @Override
+            public long getGatewayPing() {
+              return event.getJDA().getGatewayPing();
             }
           });
         } catch (Exception er) {

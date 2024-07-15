@@ -4,6 +4,16 @@ name: Changelog
 description: All notable changes to this project will be documented in this file.
 ---
 
+## [Unreleased]
+
+### Added
+
+- Added WebSocket ping to ping command
+
+### Fixed
+
+- Fixed ping command
+
 ## [0.2.0] - 2024-05-01
 
 ### Added

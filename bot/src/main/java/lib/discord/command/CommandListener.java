@@ -1,5 +1,8 @@
 package lib.discord.command;
 
+import java.time.OffsetDateTime;
+import java.time.temporal.ChronoUnit;
+
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -52,6 +55,16 @@ public class CommandListener extends ListenerAdapter {
         @Override
         public int getOptionAsInt(String name) {
           return event.getOption(name).getAsInt();
+        }
+
+        @Override
+        public long getPing() {
+          return event.getTimeCreated().until(OffsetDateTime.now(), ChronoUnit.MILLIS) / 1000;
+        }
+
+        @Override
+        public long getGatewayPing() {
+          return event.getJDA().getGatewayPing();
         }
       });
     } catch (Exception e) {
